@@ -11,7 +11,7 @@
 ##接口说明
 
 ----
-##登录接口 POST
+##登录接口 POST Tested
 ####URL
 	/user/login
 ####Request
@@ -82,7 +82,26 @@ msg|string|错误信息
 
 
 ----
-##查询接口 GET
+##取消附表 POST Tested
+####URL
+	/form/remove
+####Request
+名称|类型|说明
+---|---|---
+account|string|账号
+token|string|登陆凭证
+id|string|附表id
+
+####Response
+名称|类型|说明
+---|---|---
+errCode|int|错误码(0:成功、1:失败)
+msg|string|错误信息
+
+
+
+----
+##查询接口 GET Tested
 ####URL
 	/form/search
 ####Request
@@ -94,7 +113,6 @@ account|string|账号搜索|否
 id_card|string|身份证搜索|否
 start_time|date|起始时间|否
 end_time|date|结束时间|需要有start_time
-release_date|date|刑满日期
 
 ####Response
 名称|类型|说明
@@ -114,27 +132,45 @@ release_date|date|刑满日期
 
 
 ----
-##获取检查表数据接口 GET
+##获取检查表数据接口 GET Tested
 ####URL
 	/form/show
 ####Request
+名称|类型|说明|是否必须
+---|---|---|---
+token|string|登录凭证|是
+account|string|账号搜索|否
 
 ####Response
+名称|类型|说明
+---|---|---
+msg|string|操作结果
+data|string|很长的主表字符串
+other|list<string>|附表地址列表
+attach|list<{string,string}>|附件列表
 
-
+####attach object
+名称|类型|说明
+---|---|---
+name|string|文件名
+url|string|下载链接
 
 ----
-##修改接口 POST
+##修改接口 POST Tested
 ####URL
 	/form/modify
 ####Request
+名称|类型|说明|是否必须
+---|---|---|---
+token|string|登录凭证|是
+account|string|账号搜索|否
 
 ####Response
 
 
 
 ----
-##导出接口 GET
+##导出接口 GET Depricated
 ####URL
 	/form/export
 ####Request
@@ -210,3 +246,57 @@ password|string|密码
 zone|string|地区
 job|string|职位
 permission|int|权限
+
+
+----
+##查看罚金总数 POST Tested
+####URL
+    form/fines
+####Request
+名称|类型|说明
+---|---|---
+token|string|登录凭证	
+start_time|date|开始时间戳
+end_time|date|结束时间戳
+
+####Response
+名称|类型|说明
+---|---|---
+errCode|int|错误码(0:成功、1:失败)
+msg|string|错误信息
+fines|array<财产刑罚金,没收财产,服刑期间履行,机关纠正执行>|罚金数列表
+
+
+----
+##查看已经释放但是没有交完罚款的列表 POST Tested
+####URL
+    /notify
+####Request
+名称|类型|说明
+---|---|---
+token|string|登录凭证	
+
+####Response
+名称|类型|说明
+---|---|---
+errCode|int|错误码(0:成功、1:失败)
+msg|string|错误信息
+data|array<姓名,账号,释放日期,省份证号>|账号列表
+
+
+
+----
+##将某个主表标记为交清罚款 POST Tested
+####URL
+    /charge
+####Request
+名称|类型|说明
+---|---|---
+token|string|登录凭证	
+account|string|账号
+
+####Response
+名称|类型|说明
+---|---|---
+errCode|int|错误码(0:成功、1:失败)
+msg|string|信息
