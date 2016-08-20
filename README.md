@@ -37,6 +37,7 @@ token|string|登录凭证
 token|string|登陆凭证
 zone|string|地区(3字符)
 year|string|年(4字符)
+category|char|分类(1字符)
 
 ####Response	
 名称|类型|说明
@@ -300,3 +301,27 @@ account|string|账号
 ---|---|---
 errCode|int|错误码(0:成功、1:失败)
 msg|string|信息
+
+
+
+----
+##模糊查询 POST Tested
+####URL
+    /advanced_search
+####Request
+名称|类型|说明
+---|---|---
+token|string|登录凭证	
+category|char|分类
+year|int|年(4位)
+zone|string|地区(3位)
+
+####Response
+名称|类型|说明
+---|---|---
+errCode|int|错误码(0:成功、1:失败)
+msg|string|信息
+data|<list,fines>|信息
+
+list:用户信息数组<姓名,账号,身份证号,释放日期>
+fines:罚金统计<财产刑罚金,没收财产,服刑期间履行,机关纠正执行>
