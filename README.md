@@ -133,7 +133,7 @@ release_date|date|刑满日期
 
 
 ----
-##获取检查表数据接口 GET Tested
+##获取检查表数据接口 POST Tested
 ####URL
 	/form/show
 ####Request
